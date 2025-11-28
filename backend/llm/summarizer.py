@@ -25,7 +25,7 @@ class Summarizer:
     def summarize_with_groq(self, text):
         """Summarize text using Groq API with rate limit retries."""
         max_retries = 3
-        base_delay = 2
+        base_delay = 5  # Increased from 2 to 5 for stability
         
         for attempt in range(max_retries + 1):
             try:
@@ -183,13 +183,21 @@ class Summarizer:
         CHUNK_SIZE = 3000
 
         chunks = [text[i:i+CHUNK_SIZE] for i in range(0, len(text), CHUNK_SIZE)]
+        
+        # --- HACKATHON STABILITY FIX ---
+        # Cap at 5 chunks to avoid Rate Limits (429) during demo
+        if len(chunks) > 5:
+            print(f"[MultiSource] Capping chunks from {len(chunks)} to 5 for stability.")
+            chunks = chunks[:5]
+        # -------------------------------
+        
         print(f"[MultiSource] Split into {len(chunks)} chunks")
 
         partial_summaries = []
         for idx, chunk in enumerate(chunks):
             # Proactive delay to avoid rate limits
             if idx > 0:
-                time.sleep(2)
+                time.sleep(5)  # Increased from 2s to 5s
 
             try:
                 print(f"[MultiSource] Summarizing chunk {idx+1}/{len(chunks)}...")
