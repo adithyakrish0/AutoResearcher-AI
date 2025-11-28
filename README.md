@@ -134,24 +134,145 @@ No more manual copy-pasting. No more lost sources. Just instant, comprehensive r
              ▼
     ┌──────────────────┐
     │  Frontend Cards  │
-    │  (5 Sections)    │
-    └──────────────────┘
-```
+# AutoResearcher AI – Autonomous Internet Research Agent
+
+**AI-powered web crawling + LLM summarization + GitHub automation.**
+
+[![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://choosealicense.com/licenses/mit/)
+[![Python](https://img.shields.io/badge/Python-3.8%2B-blue)](https://www.python.org/)
+[![React](https://img.shields.io/badge/React-18.2-61DAFB)](https://reactjs.org/)
+[![FastAPI](https://img.shields.io/badge/FastAPI-0.100%2B-009688)](https://fastapi.tiangolo.com/)
 
 ---
 
-## 🎪 Sponsor Relevance
+## 🎯 Problem Statement
 
+People waste **hours** searching, reading, and summarizing information from the internet. Students, researchers, and developers constantly:
+- Jump across multiple tabs and websites
+- Manually gather sources and copy-paste content
+- Clean and structure messy text
+- Write summaries from scratch
+- Lose track of sources and references
 
-### **CodeRabbit** 🐰
-- **PR review automation** - Automatic reviews for research report PRs
-- AI-powered feedback on Markdown changes
-- Integration-ready architecture
+This process is **slow, repetitive, and prone to errors**. Naive LLM queries often hallucinate or miss critical sources, while manual research is exhausting and time-consuming.
 
-### **ETHIndia** 🇮🇳
-- Useful tool for **decentralized research documentation**
-- Can document blockchain concepts automatically
-- Research reports for DeFi, Web3, protocols
+## 💡 Solution
+
+**AutoResearcher AI** automates the entire research workflow end-to-end:
+
+✅ **Crawl** any website or topic using Apify's powerful web scraper  
+✅ **Clean** and normalize extracted text automatically  
+✅ **Summarize** content using multi-provider LLM (Groq/OpenAI/Gemini)  
+✅ **Export** results into clean Markdown research reports  
+✅ **Commit** reports directly to GitHub repositories (optional)  
+✅ **Review** PRs automatically with CodeRabbit integration  
+
+No more manual copy-pasting. No more lost sources. Just instant, comprehensive research reports.
+
+---
+
+## ✨ Key Features
+
+### 🔍 **Universal Query Support**
+- Research any **topic** or **URL**
+- Automatic detection of input type
+- DuckDuckGo search integration for topics
+
+### 🕷️ **Advanced Web Scraping**
+- **Hybrid Crawler** - DuckDuckGo Lite for fast, free results
+- **Apify Ready** - Architecture designed for Apify Actor integration
+- **Smart Extraction** - Removes ads, scripts, and clutter
+- **Multi-Source** - Aggregates data from top 5 search results
+
+### 🤖 **Multi-Provider AI**
+- **Groq** (Default - Free tier)
+- **OpenAI** (GPT-3.5/GPT-4)
+- **Google Gemini** (Gemini Pro/Flash)
+- Graceful fallbacks if no API keys
+
+### 📊 **Comprehensive Output**
+- **AI Summary** - Key insights highlighted
+- **Cleaned Text** - Normalized content
+- **Raw Data** - Original crawl results
+- **Sources** - Clickable reference links
+- **Integration Status** - API health info
+
+### 📝 **Markdown Export**
+- Structured research reports
+- Auto-generated filenames
+- Custom path support
+- Timestamp metadata
+
+### 🔄 **GitHub Integration**
+- Automatic commit to repositories
+- Create or update files
+- SHA-based versioning
+- Non-blocking design (works without tokens)
+
+### 🤝 **CodeRabbit Ready**
+- PR review automation
+- AI-powered feedback
+- Consistency checking
+- Future PR integration
+
+### 🎨 **Modern Frontend**
+- Clean React dashboard
+- Real-time API calls
+- Loading states
+- Error handling
+- Mobile responsive
+
+---
+
+## 🏗️ Architecture Overview
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                     Client (React)                          │
+│  • Search Input  • Loading Spinner  • Result Display        │
+└─────────────────────────┬───────────────────────────────────┘
+                          │
+                    POST /research
+                          │
+                          ▼
+┌─────────────────────────────────────────────────────────────┐
+│                   FastAPI Backend                           │
+│  • CORS  • Logging  • Error Handling  • Pydantic Models     │
+└─────────────────────────┬───────────────────────────────────┘
+                          │
+              ┌───────────┴───────────┐
+              ▼                       ▼
+    ┌──────────────────┐    ┌──────────────────┐
+    │  WebCrawler      │    │  POST            │
+    │  (Apify Actor)   │    │  /github/report  │
+    └────────┬─────────┘    └────────┬─────────┘
+             │                       │
+             ▼                       ▼
+    ┌──────────────────┐    ┌──────────────────┐
+    │  clean_text()    │    │  Markdown        │
+    │  (Regex + Norm)  │    │  Generator       │
+    └────────┬─────────┘    └────────┬─────────┘
+             │                       │
+             ▼                       ▼
+    ┌──────────────────┐    ┌──────────────────┐
+    │  Summarizer      │    │  GitHub API      │
+    │  Groq/OpenAI/    │    │  (Create/Update) │
+    │  Gemini          │    └────────┬─────────┘
+    └────────┬─────────┘             │
+             │                       ▼
+             ▼              ┌──────────────────┐
+    ┌──────────────────┐   │  CodeRabbit      │
+    │  Result JSON     │   │  (PR Reviews)    │
+    │  {raw, cleaned,  │   └──────────────────┘
+    │   summary, srcs} │
+    └────────┬─────────┘
+             │
+             ▼
+    ┌──────────────────┐
+    │  Frontend Cards  │
+    │  (5 Sections)    │
+    └──────────────────┘
+```
 
 ---
 
@@ -351,42 +472,42 @@ Health check endpoint.
 
 ### Quick Start
 
-1. **Start Backend**
-   ```bash
-   cd backend
-   python main.py
-   ```
+1.  **Start Backend**
+    ```bash
+    cd backend
+    python main.py
+    ```
 
-2. **Start Frontend** (in new terminal)
-   ```bash
-   cd frontend
-   npm start
-   ```
+2.  **Start Frontend** (in new terminal)
+    ```bash
+    cd frontend
+    npm start
+    ```
 
-3. **Open Browser**
-   - Navigate to `http://localhost:3000`
+3.  **Open Browser**
+    - Navigate to `http://localhost:3000`
 
-4. **Run Research**
-   - Enter a topic: `"machine learning"`
-   - OR enter a URL: `"https://en.wikipedia.org/wiki/AI"`
-   - Click "Run Research"
+4.  **Run Research**
+    - Enter a topic: `"machine learning"`
+    - OR enter a URL: `"https://en.wikipedia.org/wiki/AI"`
+    - Click "Run Research"
 
-5. **View Results**
-   - 📝 **AI Summary** (highlighted card)
-   - 🧹 **Cleaned Text**
-   - 📄 **Raw Crawl Data**
-   - 🔗 **Sources** (clickable links)
-   - ⚙️ **Integration Status**
+5.  **View Results**
+    - 📝 **AI Summary** (highlighted card)
+    - 🧹 **Cleaned Text**
+    - 📄 **Raw Crawl Data**
+    - 🔗 **Sources** (clickable links)
+    - ⚙️ **Integration Status**
 
-6. **Export to GitHub** (Optional)
-   - Use API: `POST /github/report`
-   - Or integrate into frontend
-   - Report auto-commits to your repo
+6.  **Export to GitHub** (Optional)
+    - Use API: `POST /github/report`
+    - Or integrate into frontend
+    - Report auto-commits to your repo
 
-7. **CodeRabbit Reviews** (Optional)
-   - Install CodeRabbit on your GitHub repo
-   - Create PR modifying research report
-   - Get automatic AI-powered review
+7.  **CodeRabbit Reviews** (Optional)
+    - Install CodeRabbit on your GitHub repo
+    - Create PR modifying research report
+    - Get automatic AI-powered review
 
 ---
 
@@ -460,30 +581,23 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 4. Push to the branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
----
-
 ## 📄 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
----
-
 ## 🙏 Acknowledgments
 
-- **Apify** for powerful web scraping infrastructure
-- **Groq** for fast, free LLM inference
-- **GitHub** for excellent API and platform
-- **CodeRabbit** for AI-powered PR reviews
-- **FastAPI** for the amazing web framework
-- **React** for the frontend library
-
----
+*   **Groq** for fast, free LLM inference
+*   **DuckDuckGo** for privacy-focused search results
+*   **GitHub** for excellent API and platform
+*   **FastAPI** for the amazing web framework
+*   **React** for the frontend library
 
 ## 📧 Contact
 
-**Project Link:** [https://github.com/yourusername/autoresearcher-ai](https://github.com/yourusername/autoresearcher-ai)
+**Project Link:** [https://github.com/adithyakrish0/AutoResearcher-AI](https://github.com/adithyakrish0/AutoResearcher-AI)
 
-**Built with ❤️ for HackThisFall 2024**
+**Built with ❤️ for HackThisFall 2025**
 
 ---
 
